@@ -1,8 +1,9 @@
 import styles from "./Product.module.css";
-
-export default function Product() {
+import { PageNav } from "../components/PageNav.jsx";
+export function Product() {
   return (
     <main className={styles.product}>
+      <PageNav />
       <section>
         <img
           src="img-1.jpg"
