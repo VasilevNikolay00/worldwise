@@ -1,0 +1,28 @@
+import style from "./CountriesList.module.css";
+import { Spinner } from "./Spinner";
+import { CountriesItem } from "./CountriesItem";
+
+export function CountriesList({ cities, isLoading }) {
+  if (isLoading) return <Spinner />;
+
+  if (!cities || cities.length === 0) {
+    return <p className={style.noCities}>No countries found</p>;
+  }
+
+  const countriesSet = new Set(
+    cities.map((city) => ({
+      country: city.country,
+      emoji: city.emoji,
+    }))
+  )
+    .values()
+    .toArray();
+
+  return (
+    <ul className={style.countryList}>
+      {countriesSet.map((country, i) => {
+        return <CountriesItem key={i} country={country}></CountriesItem>;
+      })}
+    </ul>
+  );
+}

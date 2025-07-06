@@ -1,9 +1,16 @@
 import styles from "./AppNav.module.css";
+import { NavLink } from "react-router-dom";
 export function AppNav() {
   return (
-    <nav>
-      <h1>WorldWise</h1>
-      <p>Explore the world, one country at a time!</p>
+    <nav className={styles.nav}>
+      <ul>
+        <li>
+          <NavLink to="cities">Cities</NavLink>
+        </li>
+        <li>
+          <NavLink to="countries">Countries</NavLink>
+        </li>
+      </ul>
     </nav>
   );
 }
