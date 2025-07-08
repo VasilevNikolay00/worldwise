@@ -1,4 +1,4 @@
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route, data } from "react-router-dom";
 import { Product } from "./pages/Product";
 import { Pricing } from "./pages/Pricing";
 import { Homepage } from "./pages/Homepage";
@@ -7,6 +7,7 @@ import { AppLayout } from "./pages/AppLayout";
 import { Login } from "./pages/Login";
 import "./index.css";
 import { CityList } from "./components/CityList";
+import { City } from "./components/City";
 import { CountriesList } from "./components/CountriesList";
 import { useEffect, useState } from "react";
 
@@ -25,6 +26,7 @@ function App() {
         }
         const data = await response.json();
         setCities(data);
+        console.log(cities);
       } catch (error) {
         console.error("Failed to fetch cities:", error);
       } finally {
@@ -34,7 +36,6 @@ function App() {
     fetchCities();
   }, []);
 
-  //console.log("Cities:", cities);
   return (
     <BrowserRouter>
       <Routes>
@@ -48,6 +49,7 @@ function App() {
             path="cities"
             element={<CityList cities={cities} isLoading={isLoading} />}
           />
+          <Route path="cities/:id" element={<City></City>} />
           <Route
             path="countries"
             element={
