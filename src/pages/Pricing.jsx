@@ -19,7 +19,10 @@ export function Pricing() {
             voluptatem iste.
           </p>
         </div>
-        <img src="img-2.jpg" alt="overview of a large city with skyscrapers" />
+        <img
+          src="../assets/img-2.jpg"
+          alt="overview of a large city with skyscrapers"
+        />
       </section>
     </main>
   );

@@ -9,22 +9,22 @@ import {
 } from "react-leaflet";
 import { useEffect, useState } from "react";
 import { useCities } from "../contexts/CitiesContext";
-import { useGeolocation } from "../hooks/useGeoLocation";
 import { Button } from "./Button";
+import { useGeolocation } from "../hooks/useGeoLocation";
+import { useUrlPosition } from "../hooks/useUrlPosition";
 import styles from "./Map.module.css";
 
 export function Map() {
   const { cities } = useCities();
-  const [searchParams] = useSearchParams();
   const [mapPosition, setMapPosition] = useState([51.505, -0.09]);
+  const [searchParams] = useSearchParams();
   const {
     isLoading: isLoadingPosition,
     positiion: geloLocationPosition,
     getPosition,
   } = useGeolocation();
-  const mapLat = searchParams.get("lat");
-  const mapLng = searchParams.get("lng");
 
+  const [mapLat, mapLng] = useUrlPosition();
   useEffect(
     function () {
       if (mapLat && mapLng) {
@@ -32,6 +32,15 @@ export function Map() {
       }
     },
     [mapLat, mapLng]
+  );
+
+  useEffect(
+    function () {
+      if (geloLocationPosition) {
+        setMapPosition([geloLocationPosition.lat, geloLocationPosition.lng]);
+      }
+    },
+    [geloLocationPosition]
   );
 
   return (
@@ -81,7 +90,6 @@ function DetectClick() {
 
   useMapEvents({
     click: (e) => {
-      console.log(e);
       navigate(`form?lat=${e.latlng.lat}&lng=${e.latlng.lng}`);
     },
   });

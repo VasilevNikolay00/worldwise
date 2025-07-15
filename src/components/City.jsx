@@ -13,34 +13,31 @@ const formatDate = (date) =>
     weekday: "long",
   }).format(new Date(date));
 
-export function City({city}) {
-
-  const { setLoading,isLoading,setCurrentCity,currentCity } = useCities();
+export function City({ city }) {
+  const { setLoading, isLoading, setCurrentCity, currentCity } = useCities();
 
   const { id } = useParams();
 
-   useEffect(function () {
-      async function fetchCities() {
-        const BASE_URL = "http://localhost:3001";
-        setLoading(true);
-        try {
-          const response = await fetch(`${BASE_URL}/cities/${id}`);
-          if (!response.ok) {
-            throw new Error("Network response was not ok");
-          }
-          const data = await response.json();
-          setCurrentCity(data);
-        } catch (error) {
-          console.error("Failed to fetch cities:", error);
-        } finally {
-          setLoading(false);
+  useEffect(function () {
+    async function fetchCities() {
+      const BASE_URL = "http://localhost:3001";
+      setLoading(true);
+      try {
+        const response = await fetch(`${BASE_URL}/cities/${id}`);
+        if (!response.ok) {
+          throw new Error("Network response was not ok");
         }
+        const data = await response.json();
+        setCurrentCity(data);
+      } catch (error) {
+        console.error("Failed to fetch cities:", error);
+      } finally {
+        setLoading(false);
       }
-      fetchCities();
-    }, []);
+    }
+    fetchCities();
+  }, []);
 
-  
-  console.log(currentCity); 
   if (!currentCity) return <Spinner />;
 
   const { cityName, emoji, date, notes } = currentCity;
@@ -76,7 +73,9 @@ export function City({city}) {
         </a>
       </div>
 
-      <div><ButtonBack /></div>
+      <div>
+        <ButtonBack />
+      </div>
     </div>
   );
 }

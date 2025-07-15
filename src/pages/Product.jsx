@@ -6,7 +6,7 @@ export function Product() {
       <PageNav />
       <section>
         <img
-          src="img-1.jpg"
+          src="../assets/bg.jpg"
           alt="person with dog overlooking mountain with sunset"
         />
         <div>
